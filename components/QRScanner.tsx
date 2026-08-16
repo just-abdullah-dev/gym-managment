@@ -88,25 +88,25 @@ export function QRScanner({ onScanSuccess }: QRScannerProps) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center">
-      <div className="w-full max-w-sm mb-4 relative min-h-[250px] bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+    <div className="bg-black/20 p-6 border border-white/10 backdrop-blur-md flex flex-col items-center">
+      <div className="w-full max-w-sm mb-4 relative min-h-[250px] bg-white/5 border border-white/10 rounded-sm overflow-hidden flex items-center justify-center">
         {/* The container for the camera feed - MUST remain completely empty for html5-qrcode */}
         <div id={regionId} className="w-full h-full z-10 absolute inset-0"></div>
         
         {/* React controlled placeholder, overlaying the empty container when inactive */}
         {!isScanning && (
-          <div className="text-gray-400 flex flex-col items-center gap-2 p-6 text-center z-20 absolute inset-0 bg-gray-100 justify-center">
+          <div className="text-white/40 flex flex-col items-center gap-3 p-6 text-center z-20 absolute inset-0 bg-black/40 backdrop-blur-sm justify-center">
             <Camera size={48} className="opacity-50" />
-            <p className="text-sm font-medium">Camera is inactive</p>
-            <p className="text-xs">Start the camera or upload an image to scan a member's QR code.</p>
+            <p className="text-[10px] uppercase tracking-widest font-medium text-white/70">Camera Offline</p>
+            <p className="text-[9px] uppercase tracking-wider text-white/30 mt-1">Start camera or upload an image to scan</p>
           </div>
         )}
       </div>
       
       {error && (
-        <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 flex gap-2 text-red-800 text-sm w-full max-w-sm">
+        <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 flex gap-3 text-red-200 backdrop-blur-md rounded-sm w-full max-w-sm">
           <AlertCircle className="shrink-0 mt-0.5" size={16} />
-          <span>{error}</span>
+          <span className="text-xs uppercase tracking-widest font-semibold">{error}</span>
         </div>
       )}
 

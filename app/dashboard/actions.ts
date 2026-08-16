@@ -12,11 +12,11 @@ export type CheckInResult = {
 export async function processQRScan(qrToken: string): Promise<CheckInResult> {
   const supabase = await createClient();
 
-  // 1. Find Member by QR token
+  // 1. Find Member by ID (QR code contains member.id)
   const { data: member, error: memberError } = await supabase
     .from('members')
     .select('*, gyms(*)')
-    .eq('qr_token', qrToken)
+    .eq('id', qrToken)
     .single();
 
   if (memberError || !member) {
@@ -61,7 +61,7 @@ export async function processQRScan(qrToken: string): Promise<CheckInResult> {
     .from('gym_schedules')
     .select('*')
     .eq('gym_id', gymId)
-    .eq('gender', member.gender)
+    .in('gender', [member.gender, 'MIXED'])
     .eq('day_of_week', dayOfWeek)
     .eq('is_active', true)
     .lte('start_time', timeString)

@@ -10,7 +10,9 @@ import {
   AlertTriangle, 
   Settings, 
   LogOut,
-  X
+  X,
+  Dumbbell,
+  ClipboardList
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { Button } from '@/components/ui/Button';
@@ -32,7 +34,9 @@ export function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) {
   };
 
   const navItems = [
-    { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard size={20} /> },
+    { name: 'Check In', href: '/dashboard', icon: <LayoutDashboard size={20} /> },
+    { name: 'Attendance', href: '/dashboard/attendance', icon: <ClipboardList size={20} /> },
+    { name: 'My GYM', href: '/dashboard/my-gym', icon: <Dumbbell size={20} /> },
     { name: 'Members', href: '/dashboard/members', icon: <Users size={20} /> },
     { name: 'Subscriptions', href: '/dashboard/subscriptions', icon: <CreditCard size={20} /> },
     { name: 'Violations', href: '/dashboard/violations', icon: <AlertTriangle size={20} /> },
@@ -52,13 +56,13 @@ export function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) {
       {/* Sidebar */}
       <aside className={`
         fixed lg:static inset-y-0 left-0 z-50
-        w-64 bg-white border-r border-gray-200 transform transition-transform duration-200 ease-in-out flex flex-col
+        w-64 bg-black border-r border-white/10 transform transition-transform duration-200 ease-in-out flex flex-col
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         <div className="p-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">GymFlow</h1>
+          <h1 className="text-2xl font-light text-white tracking-widest">SYSTEM</h1>
           <button 
-            className="lg:hidden text-gray-500 hover:text-gray-700"
+            className="lg:hidden text-white/50 hover:text-white"
             onClick={() => setIsSidebarOpen(false)}
           >
             <X size={24} />
@@ -68,16 +72,18 @@ export function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) {
         <nav className="flex-1 px-4 space-y-1 mt-4 overflow-y-auto">
           {navItems.map((item) => {
             // Precise active link logic
-            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const isActive = item.href === '/dashboard' 
+              ? pathname === '/dashboard'
+              : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link
                 key={item.name}
                 href={item.href}
                 className={`
-                  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
+                  flex items-center gap-3 px-4 py-3 text-[10px] uppercase tracking-[0.2em] transition-all duration-300
                   ${isActive 
-                    ? 'bg-brand-primary text-white' 
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-white/10 text-white font-semibold border-l-2 border-white' 
+                    : 'text-white/50 hover:bg-white/5 hover:text-white border-l-2 border-transparent'
                   }
                 `}
                 onClick={() => setIsSidebarOpen(false)}
@@ -89,11 +95,11 @@ export function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) {
           })}
         </nav>
 
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-white/10">
           <Button 
             variant="outline" 
             fullWidth 
-            className="justify-start gap-2 text-gray-700 border-gray-300 hover:bg-gray-50"
+            className="justify-start gap-3 border-white/10 text-white/70 hover:bg-white/10 hover:text-white"
             onClick={handleLogout}
           >
             <LogOut size={18} />

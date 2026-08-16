@@ -12,35 +12,35 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={`flex flex-col gap-1.5 w-full ${className}`}>
         {label && (
-          <label className="text-sm font-medium text-gray-900" htmlFor={props.id || props.name}>
+          <label className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-medium mb-1" htmlFor={props.id || props.name}>
             {label}
           </label>
         )}
         <div className="relative flex items-center">
           {icon && (
-            <span className="absolute left-3 text-gray-400 flex items-center justify-center pointer-events-none">
+            <span className="absolute left-4 text-white/40 flex items-center justify-center pointer-events-none">
               {icon}
             </span>
           )}
           <input
             ref={ref}
-            className={`w-full px-3 py-2.5 text-sm text-gray-900 bg-white border rounded-lg outline-none transition-all placeholder:text-gray-400 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed ${
-              icon ? 'pl-10' : ''
-            } ${trailingIcon ? 'pr-10' : ''} ${
+            className={`w-full px-4 py-3 text-sm font-light text-white bg-black/20 border rounded-none outline-none transition-all placeholder:text-white/20 disabled:bg-black/40 disabled:text-white/40 disabled:cursor-not-allowed ${
+              icon ? 'pl-12' : ''
+            } ${trailingIcon ? 'pr-12' : ''} ${
               error
-                ? 'border-red-300 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                : 'border-gray-300 focus:border-brand-primary focus:ring-1 focus:ring-brand-primary'
+                ? 'border-red-500/50 focus:border-red-500 focus:bg-black/40'
+                : 'border-white/10 focus:border-white/50 focus:bg-black/40'
             }`}
             id={props.id || props.name}
             {...props}
           />
           {trailingIcon && (
-            <span className="absolute right-3 text-gray-400 flex items-center justify-center cursor-pointer hover:text-gray-600 transition-colors">
+            <span className="absolute right-4 text-white/40 flex items-center justify-center cursor-pointer hover:text-white transition-colors">
               {trailingIcon}
             </span>
           )}
         </div>
-        {error && <span className="text-xs text-red-600 mt-0.5">{error}</span>}
+        {error && <span className="text-xs text-red-400 uppercase tracking-widest font-semibold mt-1">{error}</span>}
       </div>
     );
   }
